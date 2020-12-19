@@ -29,11 +29,13 @@ public class LcgCracker {
         long c = (num2 - num1 * a) % m;
 
         long predictedNum = num3, actualNum;
-        for (int i = 0; i < 10; i++) {
+        boolean printResponse = false;
+        for (int i = 0; i <= 10; i++) {
             predictedNum = nextNumber(a,c,m, predictedNum);
-            actualNum = client.makeBet(MODE_LCG, playerId, 10, predictedNum, false);
-            System.out.println("Predicted bet :\t" + predictedNum + ",\tactual bet :\t" + actualNum +
-                    ".\tBets are equal : " + (predictedNum == actualNum) + ", money = " + client.getMoney());
+            if(i == 10) printResponse = true;
+            actualNum = client.makeBet(MODE_LCG, playerId, 10, predictedNum, printResponse);
+            System.out.println("Predicted bet :\t" + predictedNum + ",  \tactual bet :\t" + actualNum +
+                    ".  \tBets are equal : " + (predictedNum == actualNum) + ", money = " + client.getMoney());
         }
     }
 

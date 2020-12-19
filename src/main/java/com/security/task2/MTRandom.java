@@ -71,16 +71,11 @@ public class MTRandom {
     public static int unTemp(int x) {
         x ^= x >>> L;
         x ^= (x << T) & C;
-
-        int temp = x;
+        int tempX = x;
         for (int i = 0; i < 5; i++) {
-            temp = x ^ ((temp << 7) & B);
+            tempX = x ^ ((tempX << S) & B);
         }
-
-        int k = temp >>> U;
-        int l = temp ^ k;
-        int m = l >>> 11;
-
-        return temp ^ m;
+        x = tempX;
+        return x ^ ((x ^ (x >>> U)) >>> U);
     }
 }
