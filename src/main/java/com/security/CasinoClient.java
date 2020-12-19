@@ -14,10 +14,9 @@ public class CasinoClient {
 
     public void createAccount(long id) throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(CASINO_URL + "/createacc" + "?id=" + id);
-        CloseableHttpResponse response = httpClient.execute(httpGet);
-        int statusCode = response.getStatusLine().getStatusCode();
-        if (statusCode == 201) {
+        String uri = CASINO_URL + "/createacc" + "?id=" + id;
+        CloseableHttpResponse response = httpClient.execute(new HttpGet(uri));
+        if (response.getStatusLine().getStatusCode() == 201) {
             money = 1000;
             System.out.println(EntityUtils.toString(response.getEntity()));
         } else {
@@ -30,11 +29,9 @@ public class CasinoClient {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         String uri = CASINO_URL + "/play" + mode + "?id=" + playerId
                 + "&bet=" + betMoney + "&number=" + betNumber;
-        HttpGet httpGet = new HttpGet(uri);
-        CloseableHttpResponse response = httpClient.execute(httpGet);
-        int statusCode = response.getStatusLine().getStatusCode();
+        CloseableHttpResponse response = httpClient.execute(new HttpGet(uri));
         String entityString = EntityUtils.toString(response.getEntity());
-        if (statusCode == 200) {
+        if (response.getStatusLine().getStatusCode() == 200) {
             if(printResponse) System.out.println(entityString);
             String realNumberString = entityString.substring(
                     entityString.lastIndexOf(":") + 1, entityString.length() - 1);
