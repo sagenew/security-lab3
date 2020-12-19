@@ -3,12 +3,13 @@ package com.security.task3;
 import com.security.CasinoClient;
 import com.security.task2.MTRandom;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class BetterMtCracker {
     private final static String MODE_BetterMT = "BetterMt";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         CasinoClient client = new CasinoClient();
         long playerId = new Random().nextLong();
         client.createAccount(playerId);

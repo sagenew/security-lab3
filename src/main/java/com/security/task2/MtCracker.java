@@ -2,12 +2,13 @@ package com.security.task2;
 
 import com.security.CasinoClient;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.Random;
 
 public class MtCracker {
     private final static String MODE_MT = "Mt";
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         CasinoClient client = new CasinoClient();
         long playerId = new Random().nextLong();
         client.createAccount(playerId);

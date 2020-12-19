@@ -2,6 +2,7 @@ package com.security.task1;
 
 import com.security.CasinoClient;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
 
@@ -9,7 +10,7 @@ public class LcgCracker {
     private final static String MODE_LCG = "Lcg";
     private static final long m = (long) Math.pow(2, 32);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         CasinoClient client = new CasinoClient();
         long playerId = new Random().nextLong();
         client.createAccount(playerId);
