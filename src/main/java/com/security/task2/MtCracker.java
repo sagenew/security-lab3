@@ -1,9 +1,8 @@
 package com.security.task2;
 
 import com.security.CasinoClient;
-
 import java.io.IOException;
-import java.time.Instant;
+import java.util.Date;
 import java.util.Random;
 
 public class MtCracker {
@@ -13,25 +12,21 @@ public class MtCracker {
         long playerId = new Random().nextLong();
         client.createAccount(playerId);
 
-        long start = Instant.now().getEpochSecond();
+        long creationTime = new Date().getTime() / 1000;
         long actualNum = client.makeBet(MODE_MT, playerId, 1,
                 1, true);
-        long end = Instant.now().getEpochSecond();
 
-        MTRandom crackedMt = null;
-        for (long timestamp = start - 1000; timestamp < end + 1000; timestamp++) {
-            MTRandom mt = new MTRandom(timestamp);
-            if (mt.next() == actualNum) {
-                crackedMt = mt;
-                break;
-            }
+        MTRandom mt = null;
+        for (long timestamp = creationTime - 100; timestamp < creationTime + 100; timestamp++) {
+            mt = new MTRandom(timestamp);
+            if (mt.next() == actualNum) break;
         }
 
         long predictedNum;
         boolean printResponse = false;
         for (int i = 0; i <= 10; i++) {
-            assert crackedMt != null;
-            predictedNum = crackedMt.next();
+            assert mt != null;
+            predictedNum = mt.next();
             if(i == 10) printResponse = true;
             actualNum = client.makeBet(MODE_MT, playerId, 100, predictedNum, printResponse);
             System.out.println("Predicted number :\t" + predictedNum + ",\tactual bet :\t" + actualNum +

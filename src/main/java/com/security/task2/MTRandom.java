@@ -3,7 +3,7 @@ package com.security.task2;
 public class MTRandom {
     private static final int N = 624; // register size
     private static final int W = 32; // computer word size
-    private static final int M = 397; // middle word, an offset used in the recurrence relation defining the series x, 1 ? m < n
+    private static final int M = 397; // middle word, an offset used in the recurrence relation defining the series x, 1 <= m < n
     private static final int A = 0x9908B0DF; // coefficients of the rational normal form twist matrix
     private static final int U = 11; // additional Mersenne Twister tempering bit shift/mask
     private static final int L = 18; // additional Mersenne Twister tempering bit shift
@@ -68,6 +68,7 @@ public class MTRandom {
         index = 0;
     }
 
+    //untempering number in state
     public static int unTemp(int x) {
         x ^= x >>> L;
         x ^= (x << T) & C;
